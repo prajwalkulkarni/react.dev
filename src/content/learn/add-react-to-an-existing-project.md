@@ -154,5 +154,4 @@ root.render(<NavigationBar />);
 
 ## ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸ್ಥಳೀಯ ಮೊಬೈಲ್ ಅಪ್ಲಿಕೇಶನ್‌ನಲ್ಲಿ ರಿಯಾಕ್ಟ್ ನೇಟಿವ್ ಅನ್ನು ಬಳಸುವುದು {/* using-react-native-in-an-existing-native-mobile-app */}
 
-[React Native](https://reactnative.dev/) can also be integrated into existing native apps incrementally. If you have an existing native app for Android (Java or Kotlin) or iOS (Objective-C or Swift), [follow this guide](https://reactnative.dev/docs/integration-with-existing-apps) to add a React Native screen to it.
 [ರಿಯಾಕ್ಟ್ ನೇಟಿವ್](https://reactnative.dev/) ಅನ್ನು ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸ್ಥಳೀಯ ಅಪ್ಲಿಕೇಶನ್‌ಗಳಲ್ಲಿ ಹೆಚ್ಚುತ್ತಿರುವ ರೀತಿಯಲ್ಲಿ ಸಂಯೋಜಿಸಬಹುದು. ನೀವು Android (Java ಅಥವಾ Kotlin) ಅಥವಾ iOS (Objective-C ಅಥವಾ Swift) ಗಾಗಿ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸ್ಥಳೀಯ ಅಪ್ಲಿಕೇಶನ್ ಹೊಂದಿದ್ದರೆ, ಇದಕ್ಕೆ ಸ್ಥಳೀಯ ರಿಯಾಕ್ಟ್ ನೇಟಿವ್ ಸ್ಕ್ರೀನ್ನ್ನು ಸೇರಿಸಲು [ಈ ಮಾರ್ಗದರ್ಶಿಯನ್ನು ಅನುಸರಿಸಿ](https://reactnative.dev/docs/integration-with-existing-apps).
