@@ -67,11 +67,10 @@ button { margin-right: 10px; }
 
 <LearnMore path="/learn/responding-to-events">
 
-Read **[ಈವೆಂಟ್ಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದು](/learn/responding-to-events)** to learn how to add event handlers.
-
+ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್‌ಗಳನ್ನು ಹೇಗೆ ಸೇರಿಸುವುದು ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಈವೆಂಟ್‌ಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದನ್ನು](/learn/responding-to-events)** ಓದಿ.
 </LearnMore>
 
-## State: a component's memory {/*state-a-components-memory*/}
+## ಸ್ಟೇಟ್: ಒಂದು ಕೊಂಪೊನೆಂಟೀನ ಸ್ಮರಣೆ {/*state-a-components-memory*/}
 
 ಪರಸ್ಪರ ಕ್ರಿಯೆಯ ಪರಿಣಾಮವಾಗಿ ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಏನಿದೆ ಎಂಬುದನ್ನು ಕೊಂಪೊನೆಂಟ್ಗಳು ಆಗಾಗ್ಗೆ ಬದಲಾಯಿಸಬೇಕಾಗುತ್ತದೆ. ಫಾರ್ಮ್‌ನಲ್ಲಿ ಟೈಪ್ ಮಾಡುವುದರಿಂದ ಇನ್‌ಪುಟ್ ಕ್ಷೇತ್ರವನ್ನು ನವೀಕರಿಸಬೇಕು, ಚಿತ್ರದ ಏರಿಳಿಕೆಯಲ್ಲಿ "next" ಕ್ಲಿಕ್ ಮಾಡುವುದರಿಂದ ಯಾವ ಚಿತ್ರವನ್ನು ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ಬದಲಾಯಿಸಬೇಕು, "buy" ಕ್ಲಿಕ್ ಮಾಡುವುದರಿಂದ ಶಾಪಿಂಗ್ ಕಾರ್ಟ್‌ನಲ್ಲಿ ಉತ್ಪನ್ನವನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ. ಕೊಂಪೊನೆಂಟ್ಗಳು ವಿಷಯಗಳನ್ನು "ನೆನಪಿಟ್ಟುಕೊಳ್ಳಬೇಕು": ಪ್ರಸ್ತುತ ಇನ್‌ಪುಟ್ ಮೌಲ್ಯ, ಪ್ರಸ್ತುತ ಚಿತ್ರ, ಶಾಪಿಂಗ್ ಕಾರ್ಟ್. ರಿಯಾಕ್ಟ್‌ನಲ್ಲಿ, ಈ ರೀತಿಯ ಘಟಕ-ನಿರ್ದಿಷ್ಟ ಸ್ಮರಣೆಯನ್ನು *ಸ್ಟೇಟ್* ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ.
 
@@ -82,7 +81,7 @@ const [index, setIndex] = useState(0);
 const [showMore, setShowMore] = useState(false);
 ```
 
-Here is how an image gallery uses and updates state on click:
+ಇಮೇಜ್ ಗ್ಯಾಲರಿಯು ಕ್ಲಿಕ್‌ನಲ್ಲಿ ಸ್ಟೇಟ್ ಹೇಗೆ ಬಳಸುತ್ತದೆ ಮತ್ತು ನವೀಕರಿಸುತ್ತದೆ ಎಂಬುದು ಇಲ್ಲಿದೆ:
 
 <Sandpack>
 
@@ -228,11 +227,11 @@ button {
 
 <LearnMore path="/learn/state-a-components-memory">
 
-Read **[State: A Component's Memory](/learn/state-a-components-memory)** to learn how to remember a value and update it on interaction.
+ಮೌಲ್ಯವನ್ನು ಹೇಗೆ ನೆನಪಿಟ್ಟುಕೊಳ್ಳುವುದು ಮತ್ತು ಪರಸ್ಪರ ಕ್ರಿಯೆಯಲ್ಲಿ ಅದನ್ನು ನವೀಕರಿಸುವುದು ಹೇಗೆ ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್: ಎ ಕಾಂಪೊನೆಂಟ್ಸ್ ಮೆಮೊರಿ](/learn/state-a-components-memory)** ಓದಿ.
 
 </LearnMore>
 
-## Render and commit {/*render-and-commit*/}
+## ನಿರೂಪಿಸಿ(ರೆಂಡರ್) ಮತ್ತು ಒಪ್ಪಿಸಿ(ಕಮ್ಮಿಟ್) {/*render-and-commit*/}
 
 ನಿಮ್ಮ ಕೊಂಪೊನೆಂಟ್ಗಳನ್ನು ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಪ್ರದರ್ಶಿಸುವ ಮೊದಲು, ಅವುಗಳನ್ನು ರಿಯಾಕ್ಟ್ ಮೂಲಕ ಸಲ್ಲಿಸಬೇಕು. ಈ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿನ ಹಂತಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು ನಿಮ್ಮ ಕೋಡ್ ಅನ್ನು ಹೇಗೆ ಕಾರ್ಯಗತಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ಅದರ ನಡವಳಿಕೆಯನ್ನು ವಿವರಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.
 
@@ -313,7 +312,7 @@ label, textarea { margin-bottom: 10px; display: block; }
 
 <LearnMore path="/learn/state-as-a-snapshot">
 
-Read **[State as a Snapshot](/learn/state-as-a-snapshot)** to learn why state appears "fixed" and unchanging inside the event handlers.
+ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್‌ಗಳಲ್ಲಿ ಸ್ಥಿತಿಯು "ಸ್ಥಿರ" ಮತ್ತು ಬದಲಾಗದೆ ಏಕೆ ಗೋಚರಿಸುತ್ತದೆ ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಸ್ನ್ಯಾಪ್‌ಶಾಟ್‌ನಂತೆ ಸ್ಟೇಟ್](/learn/state-as-a-snapshot)** ಓದಿ.
 
 </LearnMore>
 
@@ -354,6 +353,7 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 </Sandpack>
 
 [State as a Snapshot](/learn/state-as-a-snapshot) explains why this is happening. Setting state requests a new re-render, but does not change it in the already running code. So `score` continues to be `0` right after you call `setScore(score + 1)`.
+[ಸ್ಟೇಟ್-ಆಸ್-ಸ್ನ್ಯಾಪ್‌ಶಾಟ್](/learn/state-as-a-snapshot) ಇದು ಏಕೆ ನಡೆಯುತ್ತಿದೆ ಎಂಬುದನ್ನು ವಿವರಿಸುತ್ತದೆ. ಸ್ಟೇಟ್ ಹೊಂದಿಸುವುದರಿಂದ ಹೊಸ ಮರು-ನಿರೂಪಣೆಗೆ ವಿನಂತಿಸುತ್ತದೆ, ಆದರೆ ಈಗಾಗಲೇ ಚಾಲನೆಯಲ್ಲಿರುವ ಕೋಡ್‌ನಲ್ಲಿ ಅದನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ. ಆದ್ದರಿಂದ ನೀವು `setScore(score + 1)` ಎಂದು ಕರೆದ ನಂತರ `score` `0` ಆಗಿ ಮುಂದುವರಿಯುತ್ತದೆ.
 
 ```js
 console.log(score);  // 0
@@ -366,6 +366,7 @@ console.log(score);  // 0
 ```
 
 You can fix this by passing an *updater function* when setting state. Notice how replacing `setScore(score + 1)` with `setScore(s => s + 1)` fixes the "+3" button. This lets you queue multiple state updates.
+ಸ್ಟೇಟ್ ಹೊಂದಿಸುವಾಗ *ಅಪ್‌ಡೇಟರ್ ಫಂಕ್ಷನ್* ಅನ್ನು ಹಾದುಹೋಗುವ ಮೂಲಕ ನೀವು ಇದನ್ನು ಸರಿಪಡಿಸಬಹುದು. `setScore(score + 1)` ಅನ್ನು `setScore(s => s + 1)` ನೊಂದಿಗೆ ಬದಲಾಯಿಸುವುದು "+3" ಬಟನ್ ಅನ್ನು ಹೇಗೆ ಸರಿಪಡಿಸುತ್ತದೆ ಎಂಬುದನ್ನು ಗಮನಿಸಿ. ಬಹು ಸ್ಟೇಟ್ ನವೀಕರಣಗಳನ್ನು ಸರದಿಯಲ್ಲಿ ಇರಿಸಲು ಇದು ನಿಮ್ಮನ್ನು ಅನುಮತಿಸುತ್ತದೆ.
 
 <Sandpack>
 
@@ -401,11 +402,11 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 
 <LearnMore path="/learn/queueing-a-series-of-state-updates">
 
-Read **[Queueing a Series of State Updates](/learn/queueing-a-series-of-state-updates)** to learn how to queue a sequence of state updates.
+ಸ್ಟೇಟ್ ನವೀಕರಣಗಳ ಅನುಕ್ರಮವನ್ನು ಹೇಗೆ ಸರತಿಯಲ್ಲಿ ಇಡಬೇಕು ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್ ನವೀಕರಣಗಳ ಸರಣಿಯನ್ನು ಸರದಿಯಲ್ಲಿ ಇಡುವುದು](/learn/queueing-a-series-of-state-updates)** ಓದಿ.
 
 </LearnMore>
 
-## Updating objects in state {/*updating-objects-in-state*/}
+## ಸ್ಟೇಟ್ದಲ್ಲಿನ ಆಬ್ಜೆಕ್ಟ್‌ಗಳನ್ನು ನವೀಕರಿಸಿ {/*updating-objects-in-state*/}
 
 ಆಬ್ಜೆಕ್ಟ್‌ಗಳು ಸೇರಿದಂತೆ ಯಾವುದೇ ರೀತಿಯ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ವೇರಿಯೇಬಲ್‌ವನ್ನು ಸ್ಟೇಟ್ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಬಹುದು. ಆದರೆ ನೀವು ನೇರವಾಗಿ ರಿಯಾಕ್ಟ್ ಸ್ಟೇಟ್‌ನಲ್ಲಿ ಹಿಡಿದಿರುವ ವಸ್ತುಗಳು ಮತ್ತು ಅರೇಗಳನ್ನು ಬದಲಾಯಿಸಬಾರದು. ಬದಲಾಗಿ, ನೀವು ಆಬ್ಜೆಕ್ಟ್ ಮತ್ತು ಅರೇಯನ್ನು ನವೀಕರಿಸಲು ಬಯಸಿದಾಗ, ನೀವು ಹೊಸದನ್ನು ರಚಿಸಬೇಕು (ಅಥವಾ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಒಂದರ ನಕಲನ್ನು ಮಾಡಿ), ತದನಂತರ ಆ ನಕಲನ್ನು ಬಳಸಲು ಸ್ಟೇಟ್ ನವೀಕರಿಸಿ.
 
@@ -632,11 +633,11 @@ img { width: 200px; height: 200px; }
 
 <LearnMore path="/learn/updating-objects-in-state">
 
-Read **[Updating Objects in State](/learn/updating-objects-in-state)** to learn how to update objects correctly.
+ಆಬ್ಜೆಕ್ಟಗಳನ್ನು ಸರಿಯಾಗಿ ನವೀಕರಿಸುವುದು ಹೇಗೆ ಎಂದು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್ ಆಬ್ಜೆಕ್ಟ್‌ಗಳನ್ನು ನವೀಕರಿಸಿ](/learn/updating-objects-in-state)** ಓದಿ.
 
 </LearnMore>
 
-## Updating arrays in state {/*updating-arrays-in-state*/}
+## ಸ್ಟೇಟ್ ಅರೇಗಳನ್ನು ನವೀಕರಿಸಿ {/*updating-arrays-in-state*/}
 
 ಅರೇಗಳು ನೀವು ಸ್ಟೇಟ್ ಸಂಗ್ರಹಿಸಬಹುದಾದ ಮತ್ತು ಓದಲು-ಮಾತ್ರ ಎಂದು ಪರಿಗಣಿಸಬೇಕಾದ ಮತ್ತೊಂದು ರೀತಿಯ ರೂಪಾಂತರಿತ JavaScript ಆಬ್ಜೆಕ್ಟ್‌ಗಳು. ಆಬ್ಜೆಕ್ಟ್‌ಗಳಂತೆಯೇ, ನೀವು ಸ್ಟೇಟ್ಲಲಿ ಸಂಗ್ರಹವಾಗಿರುವ ರಚನೆಯನ್ನು ನವೀಕರಿಸಲು ಬಯಸಿದಾಗ, ನೀವು ಹೊಸದನ್ನು ರಚಿಸುವ ಅಗತ್ಯವಿದೆ (ಅಥವಾ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಒಂದರ ನಕಲನ್ನು ಮಾಡಿ), ತದನಂತರ ಹೊಸ ರಚನೆಯನ್ನು ಬಳಸಲು ಸ್ಟೇಟ್ ಹೊಂದಿಸಿ:
 
@@ -790,12 +791,12 @@ function ItemList({ artworks, onToggle }) {
 
 <LearnMore path="/learn/updating-arrays-in-state">
 
-Read **[Updating Arrays in State](/learn/updating-arrays-in-state)** to learn how to update arrays correctly.
+ಅರೇಗಳನ್ನು ಸರಿಯಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡುವುದು ಹೇಗೆ ಎಂದು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್ ಅರೇಗಳನ್ನು ನವೀಕರಿಸಿ](/learn/updating-arrays-in-state)** ಓದಿ.
 
 </LearnMore>
 
-## What's next? {/*whats-next*/}
+## ಮುಂದೇನು? {/*whats-next*/}
 
-Head over to [Responding to Events](/learn/responding-to-events) to start reading this chapter page by page!
+ಪುಟದಿಂದ ಈ ಅಧ್ಯಾಯವನ್ನು ಓದುವುದನ್ನು ಪ್ರಾರಂಭಿಸಲು [ಈವೆಂಟ್‌ಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದು](/learn/responding-to-events) ಗೆ ಹೋಗಿ!
 
-Or, if you're already familiar with these topics, why not read about [Managing State](/learn/managing-state)?
+ಅಥವಾ, ನೀವು ಈಗಾಗಲೇ ಈ ವಿಷಯಗಳೊಂದಿಗೆ ಪರಿಚಿತರಾಗಿದ್ದರೆ, [ಮ್ಯಾನೇಜಿಂಗ್ ಸ್ಟೇಟ್](/learn/managing-state) ಕುರಿತು ಏಕೆ ಓದಬಾರದು?
