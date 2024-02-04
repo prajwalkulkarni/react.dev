@@ -4,50 +4,50 @@ title: Choosing the State Structure
 
 <Intro>
 
-Structuring state well can make a difference between a component that is pleasant to modify and debug, and one that is a constant source of bugs. Here are some tips you should consider when structuring state.
+ಸ್ಟೇಟ್ ಚೆನ್ನಾಗಿ ರಚಿಸುವುದರಿಂದ ಮಾರ್ಪಡಿಸಲು ಮತ್ತು ಡೀಬಗ್ ಮಾಡಲು ಆಹ್ಲಾದಕರವಾದ ಕೊಂಪೊನೆಂಟ್ ಮತ್ತು ಎರರ್ಗಳ ನಿರಂತರ ಮೂಲವಾಗಿರುವ ಒಂದು ಅಂಶದ ನಡುವೆ ವ್ಯತ್ಯಾಸವನ್ನು ಮಾಡಬಹುದು. ಸ್ಟೇಟ್ ರಚಿಸುವಾಗ ನೀವು ಪರಿಗಣಿಸಬೇಕಾದ ಕೆಲವು ಸಲಹೆಗಳು ಇಲ್ಲಿವೆ.
 
 </Intro>
 
 <YouWillLearn>
 
-* When to use a single vs multiple state variables
-* What to avoid when organizing state
-* How to fix common issues with the state structure
+* ಏಕ ಮತ್ತು ಬಹು ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗಳನ್ನು ಯಾವಾಗ ಬಳಸಬೇಕು
+* ಸ್ಟೇಟ್ ಸಂಘಟಿಸುವಾಗ ಏನು ತಪ್ಪಿಸಬೇಕು
+* ಸ್ಟೇಟ್ ರಚನೆಯೊಂದಿಗೆ ಸಾಮಾನ್ಯ ಸಮಸ್ಯೆಗಳನ್ನು ಹೇಗೆ ಸರಿಪಡಿಸುವುದು
 
 </YouWillLearn>
 
-## Principles for structuring state {/*principles-for-structuring-state*/}
+## ಸ್ಟೇಟ್ ರಚನೆಯ ತತ್ವಗಳು {/*principles-for-structuring-state*/}
 
-When you write a component that holds some state, you'll have to make choices about how many state variables to use and what the shape of their data should be. While it's possible to write correct programs even with a suboptimal state structure, there are a few principles that can guide you to make better choices:
+ನೀವು ಕೆಲವು ಸ್ಟೇಟ್ ಹೊಂದಿರುವ ಕೊಂಪೊನೆಂಟ್ವನ್ನು ಬರೆಯುವಾಗ, ಎಷ್ಟು ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗಳನ್ನು ಬಳಸಬೇಕು ಮತ್ತು ಅವುಗಳ ಡೇಟಾದ ಆಕಾರ ಹೇಗಿರಬೇಕು ಎಂಬುದರ ಕುರಿತು ನೀವು ಆಯ್ಕೆಗಳನ್ನು ಮಾಡಬೇಕಾಗುತ್ತದೆ. ಉಪಸೂಕ್ತ ಸ್ಟೇಟ್ ರಚನೆಯೊಂದಿಗೆ ಸರಿಯಾದ ಪ್ರೋಗ್ರಾಂಗಳನ್ನು ಬರೆಯಲು ಸಾಧ್ಯವಾದರೆ, ಉತ್ತಮ ಆಯ್ಕೆಗಳನ್ನು ಮಾಡಲು ನಿಮಗೆ ಮಾರ್ಗದರ್ಶನ ನೀಡುವ ಕೆಲವು ತತ್ವಗಳಿವೆ:
 
-1. **Group related state.** If you always update two or more state variables at the same time, consider merging them into a single state variable.
-2. **Avoid contradictions in state.** When the state is structured in a way that several pieces of state may contradict and "disagree" with each other, you leave room for mistakes. Try to avoid this.
-3. **Avoid redundant state.** If you can calculate some information from the component's props or its existing state variables during rendering, you should not put that information into that component's state.
-4. **Avoid duplication in state.** When the same data is duplicated between multiple state variables, or within nested objects, it is difficult to keep them in sync. Reduce duplication when you can.
-5. **Avoid deeply nested state.** Deeply hierarchical state is not very convenient to update. When possible, prefer to structure state in a flat way.
+1. **ಗುಂಪು ಸಂಬಂಧಿತ ಸ್ಟೇಟ್.** ನೀವು ಯಾವಾಗಲೂ ಒಂದೇ ಸಮಯದಲ್ಲಿ ಎರಡು ಅಥವಾ ಹೆಚ್ಚಿನ ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್‌ಗಳನ್ನು ನವೀಕರಿಸಿದರೆ, ಅವುಗಳನ್ನು ಒಂದೇ ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗೆ ವಿಲೀನಗೊಳಿಸುವುದನ್ನು ಪರಿಗಣಿಸಿ.
+2. **ಸ್ಟೇಟ್ಲಲಿ ವಿರೋಧಾಭಾಸಗಳನ್ನು ತಪ್ಪಿಸಿ.** ಸ್ಟೇಟ್ ಹಲವಾರು ತುಣುಕುಗಳು ಪರಸ್ಪರ ವಿರುದ್ಧವಾಗಿ ಮತ್ತು "ಸಮ್ಮತಿಸದಿರುವ" ರೀತಿಯಲ್ಲಿ ಸ್ಟೇಟ್ ರಚಿಸಿದಾಗ, ನೀವು ತಪ್ಪುಗಳಿಗೆ ಜಾಗವನ್ನು ಬಿಡುತ್ತೀರಿ. ಇದನ್ನು ತಪ್ಪಿಸಲು ಪ್ರಯತ್ನಿಸಿ.
+3. **ಅನಗತ್ಯ ಸ್ಟೇಟ್ ತಪ್ಪಿಸಿ.** ರೆಂಡರಿಂಗ್ ಸಮಯದಲ್ಲಿ ನೀವು ಕಾಂಪೊನೆಂಟ್‌ನ ಪ್ರಾಪ್ಸ್ ಅಥವಾ ಅದರ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್‌ಗಳಿಂದ ಕೆಲವು ಮಾಹಿತಿಯನ್ನು ಲೆಕ್ಕಾಚಾರ ಮಾಡಿದರೆ, ನೀವು ಆ ಮಾಹಿತಿಯನ್ನು ಆ ಕೊಂಪೊನೆಂಟ್ ಸ್ಟೇಟ್ಗೆ ಹಾಕಬಾರದು.
+4. **ಸ್ಟೇಟ್ ನಕಲು ಮಾಡುವುದನ್ನು ತಪ್ಪಿಸಿ.** ಒಂದೇ ಡೇಟಾವನ್ನು ಬಹು ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗಳ ನಡುವೆ ಅಥವಾ ನೆಸ್ಟೆಡ್ ಆಬ್ಜೆಕ್ಟ್‌ಗಳ ನಡುವೆ ನಕಲು ಮಾಡಿದಾಗ, ಅವುಗಳನ್ನು ಸಿಂಕ್‌ನಲ್ಲಿ ಇರಿಸಲು ಕಷ್ಟವಾಗುತ್ತದೆ. ನಿಮಗೆ ಸಾಧ್ಯವಾದಾಗ ನಕಲು ಕಡಿಮೆ ಮಾಡಿ.
+5. **ಆಳವಾಗಿ ನೆಸ್ಟೆಡ್ ಸ್ಟೇಟ್ ತಪ್ಪಿಸಿ.** ಆಳವಾದ ಕ್ರಮಾನುಗತ ಸ್ಟೇಟ್ ನವೀಕರಿಸಲು ತುಂಬಾ ಅನುಕೂಲಕರವಾಗಿಲ್ಲ. ಸಾಧ್ಯವಾದಾಗ, ಸಮತಟ್ಟಾದ ರೀತಿಯಲ್ಲಿ ಸ್ಟೇಟ್ ರಚಿಸಲು ಆದ್ಯತೆ ನೀಡಿ.
 
-The goal behind these principles is to *make state easy to update without introducing mistakes*. Removing redundant and duplicate data from state helps ensure that all its pieces stay in sync. This is similar to how a database engineer might want to ["normalize" the database structure](https://docs.microsoft.com/en-us/office/troubleshoot/access/database-normalization-description) to reduce the chance of bugs. To paraphrase Albert Einstein, **"Make your state as simple as it can be--but no simpler."**
+ಈ ತತ್ವಗಳ ಹಿಂದಿನ ಗುರಿಯು *ತಪ್ಪುಗಳನ್ನು ಪರಿಚಯಿಸದೆ ಸ್ಟೇಟ್ ಸುಲಭವಾಗಿ ನವೀಕರಿಸುವುದು*. ಸ್ಟೇಟ್ದಿಂದ ಅನಗತ್ಯ ಮತ್ತು ನಕಲಿ ಡೇಟಾವನ್ನು ತೆಗೆದುಹಾಕುವುದು ಅದರ ಎಲ್ಲಾ ತುಣುಕುಗಳು ಸಿಂಕ್ ಆಗಿರುವುದನ್ನು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಲು ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇದು ಡೇಟಾಬೇಸ್ ಇಂಜಿನಿಯರ್ ದೋಷಗಳ ಸಾಧ್ಯತೆಯನ್ನು ಕಡಿಮೆ ಮಾಡಲು [ಡೇಟಾಬೇಸ್ ರಚನೆಯನ್ನು "ಸಾಮಾನ್ಯಗೊಳಿಸಲು"](https://docs.microsoft.com/en-us/office/troubleshoot/access/database-normalization-description) ಹೇಗೆ ಬಯಸಬಹುದು ಎಂಬುದನ್ನು ಹೋಲುತ್ತದೆ. ಆಲ್ಬರ್ಟ್ ಐನ್‌ಸ್ಟೈನ್‌ನನ್ನು ಪ್ಯಾರಾಫ್ರೇಸ್ ಮಾಡಲು, **"ನಿಮ್ಮ ಸ್ಥಿತಿಯನ್ನು ಸಾಧ್ಯವಾದಷ್ಟು ಸರಳಗೊಳಿಸಿ - ಆದರೆ ಸರಳವಾಗಿಲ್ಲ."**
 
-Now let's see how these principles apply in action.
+ಈ ತತ್ವಗಳು ಕ್ರಿಯೆಯಲ್ಲಿ ಹೇಗೆ ಅನ್ವಯಿಸುತ್ತವೆ ಎಂಬುದನ್ನು ಈಗ ನೋಡೋಣ.
 
-## Group related state {/*group-related-state*/}
+## ಗುಂಪು ಸಂಬಂಧಿತ ಸ್ಟೇಟ್ {/*group-related-state*/}
 
-You might sometimes be unsure between using a single or multiple state variables.
+ಏಕ ಅಥವಾ ಬಹು ಸ್ಟೇಟ್ ಅಸ್ಥಿರಗಳನ್ನು ಬಳಸುವ ನಡುವೆ ನೀವು ಕೆಲವೊಮ್ಮೆ ಖಚಿತವಾಗಿರುವುದಿಲ್ಲ.
 
-Should you do this?
+ನೀವು ಇದನ್ನು ಮಾಡಬೇಕೇ?
 
 ```js
 const [x, setX] = useState(0);
 const [y, setY] = useState(0);
 ```
 
-Or this?
+ಅಥವಾ ಇದು?
 
 ```js
 const [position, setPosition] = useState({ x: 0, y: 0 });
 ```
 
-Technically, you can use either of these approaches. But **if some two state variables always change together, it might be a good idea to unify them into a single state variable.** Then you won't forget to always keep them in sync, like in this example where moving the cursor updates both coordinates of the red dot:
+ತಾಂತ್ರಿಕವಾಗಿ, ನೀವು ಈ ವಿಧಾನಗಳಲ್ಲಿ ಒಂದನ್ನು ಬಳಸಬಹುದು. ಆದರೆ **ಕೆಲವು ಎರಡು ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್‌ಗಳು ಯಾವಾಗಲೂ ಒಟ್ಟಿಗೆ ಬದಲಾದರೆ, ಅವುಗಳನ್ನು ಒಂದೇ ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್ ಆಗಿ ಏಕೀಕರಿಸುವುದು ಒಳ್ಳೆಯದು**. ನಂತರ ಅವುಗಳನ್ನು ಯಾವಾಗಲೂ ಸಿಂಕ್‌ನಲ್ಲಿ ಇರಿಸಲು ನೀವು ಮರೆಯುವುದಿಲ್ಲ, ಈ ಉದಾಹರಣೆಯಲ್ಲಿ ಕರ್ಸರ್ ಅನ್ನು ಚಲಿಸುವಾಗ ಕೆಂಪು ಚುಕ್ಕೆಯ ಎರಡೂ ನಿರ್ದೇಶಾಂಕಗಳನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತದೆ:
 
 <Sandpack>
 
@@ -93,17 +93,17 @@ body { margin: 0; padding: 0; height: 250px; }
 
 </Sandpack>
 
-Another case where you'll group data into an object or an array is when you don't know how many pieces of state you'll need. For example, it's helpful when you have a form where the user can add custom fields.
+ನಿಮಗೆ ಎಷ್ಟು ಸ್ಟೇಟ್ ತುಣುಕುಗಳು ಬೇಕು ಎಂದು ನಿಮಗೆ ತಿಳಿದಿಲ್ಲದಿದ್ದಾಗ ನೀವು ಡೇಟಾವನ್ನು ಆಬ್ಜೆಕ್ಟ್ ಅಥವಾ ಅರೇ ಆಗಿ ಗುಂಪು ಮಾಡುವ ಇನ್ನೊಂದು ಸಂದರ್ಭವಾಗಿದೆ. ಉದಾಹರಣೆಗೆ, ಬಳಕೆದಾರರು ಕಸ್ಟಮ್ ಕ್ಷೇತ್ರಗಳನ್ನು ಸೇರಿಸಬಹುದಾದ ಫಾರ್ಮ್ ಅನ್ನು ನೀವು ಹೊಂದಿರುವಾಗ ಇದು ಸಹಾಯಕವಾಗಿರುತ್ತದೆ.
 
 <Pitfall>
 
-If your state variable is an object, remember that [you can't update only one field in it](/learn/updating-objects-in-state) without explicitly copying the other fields. For example, you can't do `setPosition({ x: 100 })` in the above example because it would not have the `y` property at all! Instead, if you wanted to set `x` alone, you would either do `setPosition({ ...position, x: 100 })`, or split them into two state variables and do `setX(100)`.
+ನಿಮ್ಮ ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್ ಒಂದು ಆಬ್ಜೆಕ್ಟ್ ಆಗಿದ್ದರೆ, ಇತರ ಕ್ಷೇತ್ರಗಳನ್ನು ಸ್ಪಷ್ಟವಾಗಿ ನಕಲಿಸದೆಯೇ [ನೀವು ಅದರಲ್ಲಿ ಒಂದು ಕ್ಷೇತ್ರವನ್ನು ಮಾತ್ರ ನವೀಕರಿಸಲು ಸಾಧ್ಯವಿಲ್ಲ](/learn/updating-objects-in-state) ಎಂಬುದನ್ನು ನೆನಪಿಡಿ. ಉದಾಹರಣೆಗೆ, ಮೇಲಿನ ಉದಾಹರಣೆಯಲ್ಲಿ ನೀವು `setPosition({ x: 100 })` ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ ಏಕೆಂದರೆ ಅದು `y` ಆಸ್ತಿಯನ್ನು ಹೊಂದಿರುವುದಿಲ್ಲ! ಬದಲಿಗೆ, ನೀವು `x` ಅನ್ನು ಏಕಾಂಗಿಯಾಗಿ ಹೊಂದಿಸಲು ಬಯಸಿದರೆ, ನೀವು `setPosition({ ...position, x: 100 })` ಅಥವಾ ಅವುಗಳನ್ನು ಎರಡು ರಾಜ್ಯ ವೇರಿಯೇಬಲ್‌ಗಳಾಗಿ ವಿಭಜಿಸಿ ಮತ್ತು `setX(100)` ಅನ್ನು ಮಾಡಿ.
 
 </Pitfall>
 
-## Avoid contradictions in state {/*avoid-contradictions-in-state*/}
+## ಸ್ಟೇಟ್ ವಿರೋಧಾಭಾಸಗಳನ್ನು ತಪ್ಪಿಸಿ {/*avoid-contradictions-in-state*/}
 
-Here is a hotel feedback form with `isSending` and `isSent` state variables:
+`isSending` ಮತ್ತು `isSent` ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್‌ಗಳೊಂದಿಗೆ ಹೋಟೆಲ್ ಪ್ರತಿಕ್ರಿಯೆ ಫಾರ್ಮ್ ಇಲ್ಲಿದೆ:
 
 <Sandpack>
 
@@ -157,9 +157,9 @@ function sendMessage(text) {
 
 </Sandpack>
 
-While this code works, it leaves the door open for "impossible" states. For example, if you forget to call `setIsSent` and `setIsSending` together, you may end up in a situation where both `isSending` and `isSent` are `true` at the same time. The more complex your component is, the harder it is to understand what happened.
+ಈ ಕೋಡ್ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತಿರುವಾಗ, ಅದು "ಅಸಾಧ್ಯ" ಸ್ಥಿತಿಗಳಿಗೆ ಬಾಗಿಲು ತೆರೆದಿರುತ್ತದೆ. ಉದಾಹರಣೆಗೆ, ನೀವು `setIsSent` ಮತ್ತು `setIsSending` ಅನ್ನು ಒಟ್ಟಿಗೆ ಕರೆಯಲು ಮರೆತರೆ, ಒಂದೇ ಸಮಯದಲ್ಲಿ `isSending` ಮತ್ತು `isSent` ಎರಡೂ `true` ಆಗಿರುವ ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ನೀವು ಕೊನೆಗೊಳ್ಳಬಹುದು. ನಿಮ್ಮ ಕೊಂಪೊನೆಂಟ್ ಹೆಚ್ಚು ಸಂಕೀರ್ಣವಾಗಿದ್ದರೆ, ಏನಾಯಿತು ಎಂಬುದನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು ಕಷ್ಟ.
 
-**Since `isSending` and `isSent` should never be `true` at the same time, it is better to replace them with one `status` state variable that may take one of *three* valid states:** `'typing'` (initial), `'sending'`, and `'sent'`:
+**`isSending` ಮತ್ತು `isSent` ಒಂದೇ ಸಮಯದಲ್ಲಿ ಎಂದಿಗೂ `true` ಆಗಿರಬಾರದು ಎಂಬ ಕಾರಣದಿಂದ, ಅವುಗಳನ್ನು ಒಂದು `status` ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ನೊಂದಿಗೆ ಬದಲಾಯಿಸುವುದು ಉತ್ತಮವಾಗಿದೆ ಅದು *ಮೂರು* ಮಾನ್ಯ ಸ್ಥಿತಿಗಳಲ್ಲಿ ಒಂದನ್ನು ತೆಗೆದುಕೊಳ್ಳಬಹುದು:** `typing'` (ಆರಂಭಿಕ ), `'sending'`, ಮತ್ತು `'sent'`:
 
 <Sandpack>
 
@@ -214,20 +214,20 @@ function sendMessage(text) {
 
 </Sandpack>
 
-You can still declare some constants for readability:
+ಓದಲು ನೀವು ಇನ್ನೂ ಕೆಲವು ಕೊಂಸ್ಟಂಟ್ಗಳನ್ನು ಘೋಷಿಸಬಹುದು:
 
 ```js
 const isSending = status === 'sending';
 const isSent = status === 'sent';
 ```
 
-But they're not state variables, so you don't need to worry about them getting out of sync with each other.
+ಆದರೆ ಅವು ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್‌ಗಳಲ್ಲ, ಆದ್ದರಿಂದ ಅವುಗಳು ಪರಸ್ಪರ ಸಿಂಕ್‌ನಿಂದ ಹೊರಬರುವ ಬಗ್ಗೆ ನೀವು ಚಿಂತಿಸಬೇಕಾಗಿಲ್ಲ.
 
-## Avoid redundant state {/*avoid-redundant-state*/}
+## ಅನಗತ್ಯ ಸ್ಟೇಟ್ ತಪ್ಪಿಸಿ {/*avoid-redundant-state*/}
 
-If you can calculate some information from the component's props or its existing state variables during rendering, you **should not** put that information into that component's state.
+ರೆಂಡರಿಂಗ್ ಸಮಯದಲ್ಲಿ ನೀವು ಕಾಂಪೊನೆಂಟ್‌ನ ಪ್ರಾಪ್ಸ್ ಅಥವಾ ಅದರ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗಳಿಂದ ಕೆಲವು ಮಾಹಿತಿಯನ್ನು ಲೆಕ್ಕ ಹಾಕಬಹುದಾದರೆ, ನೀವು ಆ ಮಾಹಿತಿಯನ್ನು ಆ ಕೊಂಪೊನೆಂಟ್ ಸ್ಟೇಟ್ಗೆ **ಹಾಕಬಾರದು.**
 
-For example, take this form. It works, but can you find any redundant state in it?
+ಉದಾಹರಣೆಗೆ, ಈ ಫಾರ್ಮ್ ಅನ್ನು ತೆಗೆದುಕೊಳ್ಳಿ. ಇದು ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ, ಆದರೆ ನೀವು ಅದರಲ್ಲಿ ಯಾವುದೇ ಅನಗತ್ಯ ಸ್ಟೇಟ್ ಕಂಡುಹಿಡಿಯಬಹುದೇ?
 
 <Sandpack>
 
@@ -280,9 +280,9 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-This form has three state variables: `firstName`, `lastName`, and `fullName`. However, `fullName` is redundant. **You can always calculate `fullName` from `firstName` and `lastName` during render, so remove it from state.**
+ಈ ಫಾರ್ಮ್ ಮೂರು ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗಳನ್ನು ಹೊಂದಿದೆ: `firstName`, `lastName`, ಮತ್ತು `fullName`. ಆದಾಗ್ಯೂ, `fullName` ಅನಗತ್ಯವಾಗಿದೆ. **ನೀವು ಯಾವಾಗಲೂ `firstName` ಮತ್ತು `lastName` ನಿಂದ `fullName` ಅನ್ನು ಲೆಕ್ಕ ಹಾಕಬಹುದು, ಆದ್ದರಿಂದ ಅದನ್ನು ಸ್ಟೇಟ್ದಿಂದ ತೆಗೆದುಹಾಕಿ.**
 
-This is how you can do it:
+ನೀವು ಇದನ್ನು ಈ ರೀತಿ ಮಾಡಿ:
 
 <Sandpack>
 
@@ -334,37 +334,37 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-Here, `fullName` is *not* a state variable. Instead, it's calculated during render:
+ಇಲ್ಲಿ, `fullName` ಒಂದು ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್ *ಆಗಿಲ್ಲ*. ಬದಲಾಗಿ, ರೆಂಡರ್ ಸಮಯದಲ್ಲಿ ಇದನ್ನು ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ:
 
 ```js
 const fullName = firstName + ' ' + lastName;
 ```
 
-As a result, the change handlers don't need to do anything special to update it. When you call `setFirstName` or `setLastName`, you trigger a re-render, and then the next `fullName` will be calculated from the fresh data.
+ಪರಿಣಾಮವಾಗಿ, ಬದಲಾವಣೆ ನಿರ್ವಾಹಕರು ಅದನ್ನು ನವೀಕರಿಸಲು ವಿಶೇಷವಾದ ಏನನ್ನೂ ಮಾಡಬೇಕಾಗಿಲ್ಲ. ನೀವು `setFirstName` ಅಥವಾ `setLastName` ಎಂದು ಕರೆ ಮಾಡಿದಾಗ, ನೀವು ಮರು-ರೆಂಡರ್ ಅನ್ನು ಪ್ರಚೋದಿಸುತ್ತೀರಿ ಮತ್ತು ನಂತರ ಮುಂದಿನ `fullName` ಅನ್ನು ತಾಜಾ ಡೇಟಾದಿಂದ ಲೆಕ್ಕಹಾಕಲಾಗುತ್ತದೆ.
 
 <DeepDive>
 
-#### Don't mirror props in state {/*don-t-mirror-props-in-state*/}
+#### ಸ್ಟೇಟ್ದಲ್ಲಿ ಆಸರೆಗಳನ್ನು ಪ್ರತಿಬಿಂಬಿಸಬೇಡಿ {/*don-t-mirror-props-in-state*/}
 
-A common example of redundant state is code like this:
+ಅನಗತ್ಯ ಸ್ಟೇಟ್ ಸಾಮಾನ್ಯ ಉದಾಹರಣೆಯೆಂದರೆ ಈ ರೀತಿಯ ಕೋಡ್:
 
 ```js
 function Message({ messageColor }) {
   const [color, setColor] = useState(messageColor);
 ```
 
-Here, a `color` state variable is initialized to the `messageColor` prop. The problem is that **if the parent component passes a different value of `messageColor` later (for example, `'red'` instead of `'blue'`), the `color` *state variable* would not be updated!** The state is only initialized during the first render.
+ಇಲ್ಲಿ, `color` ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್ ಅನ್ನು `messageColor` ಪ್ರಾಪ್‌ಗೆ ಆರಂಭಿಸಲಾಗಿದೆ. ಸಮಸ್ಯೆ ಏನೆಂದರೆ **ಮೂಲ ಕೊಂಪೊನೆಂಟ್ ನಂತರ `messageColor` ನ ವಿಭಿನ್ನ ಮೌಲ್ಯವನ್ನು ರವಾನಿಸಿದರೆ (ಉದಾಹರಣೆಗೆ, `'blue'` ಬದಲಿಗೆ `'red'`), `color` *ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್* ಅನ್ನು ನವೀಕರಿಸಲಾಗುವುದಿಲ್ಲ!** ಮೊದಲ ರೆಂಡರ್ ಸಮಯದಲ್ಲಿ ಮಾತ್ರ ಸ್ಟೇಟ್ ಪ್ರಾರಂಭಿಸಲಾಗುತ್ತದೆ.
 
-This is why "mirroring" some prop in a state variable can lead to confusion. Instead, use the `messageColor` prop directly in your code. If you want to give it a shorter name, use a constant:
+ಇದಕ್ಕಾಗಿಯೇ ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ನಲ್ಲಿ ಕೆಲವು ಆಸರೆಗಳನ್ನು "ಪ್ರತಿಬಿಂಬಿಸುವುದು" ಗೊಂದಲಕ್ಕೆ ಕಾರಣವಾಗಬಹುದು. ಬದಲಿಗೆ, ನಿಮ್ಮ ಕೋಡ್‌ನಲ್ಲಿ ನೇರವಾಗಿ `messageColor` ಪ್ರಾಪ್ ಅನ್ನು ಬಳಸಿ. ನೀವು ಚಿಕ್ಕ ಹೆಸರನ್ನು ನೀಡಲು ಬಯಸಿದರೆ, ಕೊಂಸ್ಟಂಟ್ವನ್ನು ಬಳಸಿ:
 
 ```js
 function Message({ messageColor }) {
   const color = messageColor;
 ```
 
-This way it won't get out of sync with the prop passed from the parent component.
+ಈ ರೀತಿಯಲ್ಲಿ ಇದು ಮೂಲ ಕೊಂಪೊನೆಂಟ್ದಿಂದ ರವಾನಿಸಲಾದ ಪ್ರಾಪ್‌ನೊಂದಿಗೆ ಸಿಂಕ್‌ನಿಂದ ಹೊರಬರುವುದಿಲ್ಲ.
 
-"Mirroring" props into state only makes sense when you *want* to ignore all updates for a specific prop. By convention, start the prop name with `initial` or `default` to clarify that its new values are ignored:
+ನಿರ್ದಿಷ್ಟ ಪ್ರಾಪ್‌ಗಾಗಿ ಎಲ್ಲಾ ನವೀಕರಣಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸಲು ನೀವು *ಬಯಸಿದಾಗ* ಮಾತ್ರ ಪ್ರಾಪ್‌ಗಳನ್ನು ಸ್ಟೇಟ್ಗೆ ಪ್ರತಿಬಿಂಬಿಸುವುದು ಅರ್ಥಪೂರ್ಣವಾಗಿರುತ್ತದೆ. ಸಂಪ್ರದಾಯದ ಮೂಲಕ, ಅದರ ಹೊಸ ಮೌಲ್ಯಗಳನ್ನು ನಿರ್ಲಕ್ಷಿಸಲಾಗಿದೆ ಎಂಬುದನ್ನು ಸ್ಪಷ್ಟಪಡಿಸಲು ಪ್ರಾಪ್ ಹೆಸರನ್ನು `initial` ಅಥವಾ `default` ನೊಂದಿಗೆ ಪ್ರಾರಂಭಿಸಿ:
 
 ```js
 function Message({ initialColor }) {
@@ -375,9 +375,9 @@ function Message({ initialColor }) {
 
 </DeepDive>
 
-## Avoid duplication in state {/*avoid-duplication-in-state*/}
+## ಸ್ಟೇಟ್ದಲ್ಲಿ ನಕಲು ಮಾಡುವುದನ್ನು ತಪ್ಪಿಸಿ {/*avoid-duplication-in-state*/}
 
-This menu list component lets you choose a single travel snack out of several:
+ಈ ಮೆನು ಪಟ್ಟಿ ಕೊಂಪೊನೆಂಟ್ ನಿಮಗೆ ಹಲವಾರು ಪ್ರಯಾಣದ ತಿಂಡಿಗಳನ್ನು ಆಯ್ಕೆ ಮಾಡಲು ಅನುಮತಿಸುತ್ತದೆ:
 
 <Sandpack>
 
@@ -422,9 +422,9 @@ button { margin-top: 10px; }
 
 </Sandpack>
 
-Currently, it stores the selected item as an object in the `selectedItem` state variable. However, this is not great: **the contents of the `selectedItem` is the same object as one of the items inside the `items` list.** This means that the information about the item itself is duplicated in two places.
+ಪ್ರಸ್ತುತ, ಇದು ಆಯ್ದ ಐಟಂ ಅನ್ನು ಆಬ್ಜೆಕ್ಟನಂತೆ `selectedItem` ಸ್ಟೇಟ್ ವೇರಿಯೇಬಲ್‌ನಲ್ಲಿ ಸಂಗ್ರಹಿಸುತ್ತದೆ. ಆದಾಗ್ಯೂ, ಇದು ಉತ್ತಮವಾಗಿಲ್ಲ: **`selectedItem` ವಿಷಯಗಳು `items` ಪಟ್ಟಿಯೊಳಗಿನ ಐಟಂಗಳಲ್ಲಿ ಒಂದರಂತೆಯೇ ಒಂದೇ ಆಬ್ಜೆಕ್ಟವಾಗಿದೆ.** ಇದರರ್ಥ ಐಟಂ ಬಗ್ಗೆ ಮಾಹಿತಿಯನ್ನು ಎರಡು ಸ್ಥಳಗಳಲ್ಲಿ ನಕಲು ಮಾಡಲಾಗಿದೆ.
 
-Why is this a problem? Let's make each item editable:
+ಇದು ಏಕೆ ಸಮಸ್ಯೆಯಾಗಿದೆ? ಪ್ರತಿಯೊಂದು ಐಟಂ ಅನ್ನು ತಿದ್ದುವಂತೆ ಮಾಡೋಣ:
 
 <Sandpack>
 
@@ -487,10 +487,9 @@ button { margin-top: 10px; }
 
 </Sandpack>
 
-Notice how if you first click "Choose" on an item and *then* edit it, **the input updates but the label at the bottom does not reflect the edits.** This is because you have duplicated state, and you forgot to update `selectedItem`.
+ನೀವು ಮೊದಲು ಐಟಂ ಮೇಲೆ "Choose" ಕ್ಲಿಕ್ ಮಾಡಿ *ನಂತರ* ಅದನ್ನು ಎಡಿಟ್ ಮಾಡಿದರೆ, **ಇನ್‌ಪುಟ್ ಅನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತದೆ ಆದರೆ ಕೆಳಭಾಗದಲ್ಲಿರುವ ಲೇಬಲ್ ಸಂಪಾದನೆಗಳನ್ನು ಪ್ರತಿಬಿಂಬಿಸುವುದಿಲ್ಲ.** ಏಕೆಂದರೆ ನೀವು ನಕಲು ಸ್ಟೇಟ್ ಹೊಂದಿದ್ದೀರಿ ಮತ್ತು ನೀವು `selectedItem` ಅನ್ನು ನವೀಕರಿಸಲು ಮರೆತಿದ್ದೀರಿ..
 
-Although you could update `selectedItem` too, an easier fix is to remove duplication. In this example, instead of a `selectedItem` object (which creates a duplication with objects inside `items`), you hold the `selectedId` in state, and *then* get the `selectedItem` by searching the `items` array for an item with that ID:
-
+ನೀವು `selectedItem` ಅನ್ನು ನವೀಕರಿಸಬಹುದಾದರೂ, ನಕಲು ತೆಗೆದುಹಾಕುವುದು ಸುಲಭವಾದ ಪರಿಹಾರವಾಗಿದೆ. ಈ ಉದಾಹರಣೆಯಲ್ಲಿ, `selectedItem` ಆಬ್ಜೆಕ್ಟ್‌ನ ಬದಲಿಗೆ (ಇದು `items` ಒಳಗೆ ವಸ್ತುಗಳೊಂದಿಗೆ ನಕಲು ರಚಿಸುತ್ತದೆ), ನೀವು `selectedId` ಅನ್ನು ಸ್ಟೇಟ್ದಲ್ಲಿ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಿ, *ನಂತರ* `items` ಅರೇ ಅನ್ನು ಹುಡುಕುವ ಮೂಲಕ `selectedItem` ಅನ್ನು ಪಡೆಯಿರಿ ಆ ಐಡಿ ಹೊಂದಿರುವ ಐಟಂ:
 <Sandpack>
 
 ```js
@@ -554,25 +553,24 @@ button { margin-top: 10px; }
 
 </Sandpack>
 
-(Alternatively, you may hold the selected index in state.)
-
-The state used to be duplicated like this:
+(ಪರ್ಯಾಯವಾಗಿ, ನೀವು ಆಯ್ಕೆಮಾಡಿದ ಸೂಚಿಯನ್ನು ಸ್ಟೇಟ್ದಲ್ಲಿ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಬಹುದು.)
+ಸ್ಟೇಟ್ವನ್ನು ಈ ರೀತಿ ನಕಲು ಮಾಡಲಾಗುತ್ತಿತ್ತು:
 
 * `items = [{ id: 0, title: 'pretzels'}, ...]`
 * `selectedItem = {id: 0, title: 'pretzels'}`
 
-But after the change it's like this:
+ಆದರೆ ಬದಲಾವಣೆಯ ನಂತರ ಅದು ಹೀಗಿದೆ:
 
 * `items = [{ id: 0, title: 'pretzels'}, ...]`
 * `selectedId = 0`
 
-The duplication is gone, and you only keep the essential state!
+ನಕಲು ಹೋಗಿದೆ, ಮತ್ತು ನೀವು ಅಗತ್ಯ ಸ್ಟೇಟ್ ಮಾತ್ರ ಇಟ್ಟುಕೊಳ್ಳುತ್ತೀರಿ!
 
-Now if you edit the *selected* item, the message below will update immediately. This is because `setItems` triggers a re-render, and `items.find(...)` would find the item with the updated title. You didn't need to hold *the selected item* in state, because only the *selected ID* is essential. The rest could be calculated during render.
+ಈಗ ನೀವು *ಆಯ್ಕೆ ಮಾಡಿದ* ಐಟಂ ಅನ್ನು ಎಡಿಟ್ ಮಾಡಿದರೆ, ಕೆಳಗಿನ ಸಂದೇಶವು ತಕ್ಷಣವೇ ನವೀಕರಿಸುತ್ತದೆ. ಏಕೆಂದರೆ `setItems` ಮರು-ರೆಂಡರ್ ಅನ್ನು ಪ್ರಚೋದಿಸುತ್ತದೆ ಮತ್ತು `items.find(...)` ನವೀಕರಿಸಿದ ಶೀರ್ಷಿಕೆಯೊಂದಿಗೆ ಐಟಂ ಅನ್ನು ಹುಡುಕುತ್ತದೆ. ನೀವು *ಆಯ್ಕೆ ಮಾಡಿದ ಐಟಂ* ಅನ್ನು ಸ್ಟೇಟ್ದಲ್ಲಿ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳುವ ಅಗತ್ಯವಿಲ್ಲ, ಏಕೆಂದರೆ *ಆಯ್ಕೆ ಮಾಡಿದ ID* ಮಾತ್ರ ಅತ್ಯಗತ್ಯ. ರೆಂಡರ್ ಸಮಯದಲ್ಲಿ ಉಳಿದವನ್ನು ಲೆಕ್ಕ ಹಾಕಬಹುದು.
 
-## Avoid deeply nested state {/*avoid-deeply-nested-state*/}
+## ಆಳವಾಗಿ ನೆಸ್ಟೆಡ್ ಸ್ಟೇಟ್ ತಪ್ಪಿಸಿ {/*avoid-deeply-nested-state*/}
 
-Imagine a travel plan consisting of planets, continents, and countries. You might be tempted to structure its state using nested objects and arrays, like in this example:
+ಗ್ರಹಗಳು, ಖಂಡಗಳು ಮತ್ತು ದೇಶಗಳನ್ನು ಒಳಗೊಂಡಿರುವ ಪ್ರಯಾಣದ ಯೋಜನೆಯನ್ನು ಕಲ್ಪಿಸಿಕೊಳ್ಳಿ. ಈ ಉದಾಹರಣೆಯಲ್ಲಿರುವಂತೆ ನೆಸ್ಟೆಡ್ ಆಬ್ಜೆಕ್ಟ್‌ಗಳು ಮತ್ತು ಅರೇಗಳನ್ನು ಬಳಸಿಕೊಂಡು ಅದರ ಸ್ಟೇಟ್ ರಚಿಸಲು ನೀವು ಪ್ರಚೋದಿಸಬಹುದು:
 
 <Sandpack>
 
@@ -814,11 +812,11 @@ export const initialTravelPlan = {
 
 </Sandpack>
 
-Now let's say you want to add a button to delete a place you've already visited. How would you go about it? [Updating nested state](/learn/updating-objects-in-state#updating-a-nested-object) involves making copies of objects all the way up from the part that changed. Deleting a deeply nested place would involve copying its entire parent place chain. Such code can be very verbose.
+ಈಗ ನೀವು ಈಗಾಗಲೇ ಭೇಟಿ ನೀಡಿದ ಸ್ಥಳವನ್ನು ಅಳಿಸಲು ನೀವು ಬಟನ್ ಅನ್ನು ಸೇರಿಸಲು ಬಯಸುತ್ತೀರಿ ಎಂದು ಹೇಳೋಣ. ನೀವು ಅದರ ಬಗ್ಗೆ ಹೇಗೆ ಹೋಗುತ್ತೀರಿ? [ಅಪ್‌ಡೇಟ್ ನೆಸ್ಟೆಡ್ ಸ್ಟೇಟ್](/learn/updating-objects-in-state#updating-a-nested-object) ಬದಲಾದ ಭಾಗದಿಂದ ಎಲ್ಲಾ ರೀತಿಯಲ್ಲಿ ಆಬ್ಜೆಕ್ಟಗಳ ನಕಲು ಮಾಡುವುದನ್ನು ಒಳಗೊಂಡಿರುತ್ತದೆ. ಆಳವಾದ ನೆಸ್ಟೆಡ್ ಸ್ಟೇಟವನ್ನು ಅಳಿಸುವುದು ಅದರ ಸಂಪೂರ್ಣ ಪೋಷಕ ಸ್ಥಳ ಸರಪಳಿಯನ್ನು ನಕಲಿಸುವುದನ್ನು ಒಳಗೊಂಡಿರುತ್ತದೆ. ಅಂತಹ ಕೋಡ್ ತುಂಬಾ ಮೌಖಿಕವಾಗಿರಬಹುದು.
 
-**If the state is too nested to update easily, consider making it "flat".** Here is one way you can restructure this data. Instead of a tree-like structure where each `place` has an array of *its child places*, you can have each place hold an array of *its child place IDs*. Then store a mapping from each place ID to the corresponding place.
+**ಸ್ಟೇಟ್ ಸುಲಭವಾಗಿ ನವೀಕರಿಸಲು ತುಂಬಾ ನೆಸ್ಟೆಡ್ ಆಗಿದ್ದರೆ, ಅದನ್ನು "ಫ್ಲಾಟ್" ಮಾಡಲು ಪರಿಗಣಿಸಿ.** ಈ ಡೇಟಾವನ್ನು ನೀವು ಪುನರ್ರಚಿಸುವ ಒಂದು ಮಾರ್ಗ ಇಲ್ಲಿದೆ. ಪ್ರತಿ `place` *ಅದರ ಮಕ್ಕಳ ಸ್ಥಳಗಳ* ಅರೇಯನ್ನು ಹೊಂದಿರುವ ಮರದಂತಹ ರಚನೆಯ ಬದಲಿಗೆ, ನೀವು ಪ್ರತಿ ಸ್ಥಳವು *ಅದರ ಮಕ್ಕಳ ಸ್ಥಳ ID ಗಳ* ಅರೇಯನ್ನು ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಬಹುದು. ನಂತರ ಪ್ರತಿ ಸ್ಥಳದ ID ಯಿಂದ ಅನುಗುಣವಾದ ಸ್ಥಳಕ್ಕೆ ಮ್ಯಾಪಿಂಗ್ ಅನ್ನು ಸಂಗ್ರಹಿಸಿ.
 
-This data restructuring might remind you of seeing a database table:
+ಈ ಡೇಟಾ ಪುನರ್ರಚನೆಯು ಡೇಟಾಬೇಸ್ ಟೇಬಲ್ ಅನ್ನು ನೋಡುವುದನ್ನು ನಿಮಗೆ ನೆನಪಿಸಬಹುದು:
 
 <Sandpack>
 
@@ -1120,14 +1118,14 @@ export const initialTravelPlan = {
 
 </Sandpack>
 
-**Now that the state is "flat" (also known as "normalized"), updating nested items becomes easier.**
+**ಈಗ ಸ್ಟೇಟ್ "ಫ್ಲಾಟ್" ಆಗಿದೆ (ಇದನ್ನು "ನೊರ್ಮಲ್ಯ್ಜ಼ೆಡ್" ಎಂದೂ ಕರೆಯಲಾಗುತ್ತದೆ), ನೆಸ್ಟೆಡ್ ಐಟಂಗಳನ್ನು ನವೀಕರಿಸುವುದು ಸುಲಭವಾಗುತ್ತದೆ.**
 
-In order to remove a place now, you only need to update two levels of state:
+ಇದೀಗ ಸ್ಥಳವನ್ನು ತೆಗೆದುಹಾಕಲು, ನೀವು ಕೇವಲ ಎರಡು ಹಂತದ ಸ್ಟೇಟ್ ನವೀಕರಿಸಬೇಕಾಗಿದೆ:
 
-- The updated version of its *parent* place should exclude the removed ID from its `childIds` array.
-- The updated version of the root "table" object should include the updated version of the parent place.
+- ಅದರ *ಪೋಷಕ* ಸ್ಥಳದ ನವೀಕರಿಸಿದ ಆವೃತ್ತಿಯು ತೆಗೆದುಹಾಕಲಾದ ID ಅನ್ನು ಅದರ `childIds` ಅರೇಯಿಂದ ಹೊರಗಿಡಬೇಕು.
+- ಮೂಲ "ಟೇಬಲ್" ವಸ್ತುವಿನ ನವೀಕರಿಸಿದ ಆವೃತ್ತಿಯು ಮೂಲ ಸ್ಥಳದ ನವೀಕರಿಸಿದ ಆವೃತ್ತಿಯನ್ನು ಒಳಗೊಂಡಿರಬೇಕು.
 
-Here is an example of how you could go about it:
+ನೀವು ಅದರ ಬಗ್ಗೆ ಹೇಗೆ ಹೋಗಬಹುದು ಎಂಬುದರ ಉದಾಹರಣೆ ಇಲ್ಲಿದೆ:
 
 <Sandpack>
 
@@ -1460,13 +1458,13 @@ button { margin: 10px; }
 
 </Sandpack>
 
-You can nest state as much as you like, but making it "flat" can solve numerous problems. It makes state easier to update, and it helps ensure you don't have duplication in different parts of a nested object.
+ನೀವು ಇಷ್ಟಪಡುವಷ್ಟು ಗೂಡಿನ ಸ್ಟೇಟ್ ನೀವು ಮಾಡಬಹುದು, ಆದರೆ ಅದನ್ನು "ಫ್ಲಾಟ್" ಮಾಡುವುದರಿಂದ ಹಲವಾರು ಸಮಸ್ಯೆಗಳನ್ನು ಪರಿಹರಿಸಬಹುದು. ಇದು ಸ್ಟೇಟ್ ನವೀಕರಿಸಲು ಸುಲಭಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ನೆಸ್ಟೆಡ್ ಆಬ್ಜೆಕ್ಟವಿನ ವಿವಿಧ ಭಾಗಗಳಲ್ಲಿ ನೀವು ನಕಲು ಹೊಂದಿಲ್ಲ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಲು ಇದು ಸಹಾಯ ಮಾಡುತ್ತದೆ.
 
 <DeepDive>
 
-#### Improving memory usage {/*improving-memory-usage*/}
+#### ಮೆಮೊರಿ ಬಳಕೆಯನ್ನು ಸುಧಾರಿಸುವುದು {/*improving-memory-usage*/}
 
-Ideally, you would also remove the deleted items (and their children!) from the "table" object to improve memory usage. This version does that. It also [uses Immer](/learn/updating-objects-in-state#write-concise-update-logic-with-immer) to make the update logic more concise.
+ತಾತ್ತ್ವಿಕವಾಗಿ, ಮೆಮೊರಿ ಬಳಕೆಯನ್ನು ಸುಧಾರಿಸಲು ನೀವು "ಟೇಬಲ್" ಆಬ್ಜೆಕ್ಟನಿಂದ ಅಳಿಸಲಾದ ಐಟಂಗಳನ್ನು (ಮತ್ತು ಅವರ ಮಕ್ಕಳು!) ತೆಗೆದುಹಾಕುತ್ತೀರಿ. ಈ ಆವೃತ್ತಿಯು ಅದನ್ನು ಮಾಡುತ್ತದೆ. ಅಪ್‌ಡೇಟ್ ತರ್ಕವನ್ನು ಹೆಚ್ಚು ಸಂಕ್ಷಿಪ್ತಗೊಳಿಸಲು ಇದು [ಇಮ್ಮರ್ ಅನ್ನು ಬಳಸುತ್ತದೆ](/learn/updating-objects-in-state#write-concise-update-logic-with-immer).
 
 <Sandpack>
 
@@ -1819,17 +1817,17 @@ button { margin: 10px; }
 
 </DeepDive>
 
-Sometimes, you can also reduce state nesting by moving some of the nested state into the child components. This works well for ephemeral UI state that doesn't need to be stored, like whether an item is hovered.
+ಕೆಲವೊಮ್ಮೆ, ನೀವು ನೆಸ್ಟೆಡ್ ಸ್ಟೇಟ್ ಅನ್ನು ಮಗುವಿನ ಕೊಂಪೊನೆಂಟಗಳಿಗೆ ಚಲಿಸುವ ಮೂಲಕ ಸ್ಟೇಟ್ ಗೂಡುಕಟ್ಟುವಿಕೆಯನ್ನು ಕಡಿಮೆ ಮಾಡಬಹುದು. ಐಟಂ ಅನ್ನು ಸುಳಿದಾಡುವಂತೆಯೇ ಸಂಗ್ರಹಿಸುವ ಅಗತ್ಯವಿಲ್ಲದ ಅಲ್ಪಕಾಲಿಕ UI ಸ್ಥಿತಿಗೆ ಇದು ಉತ್ತಮವಾಗಿ ಕಾರ್ಯನಿರ್ವಹಿಸುತ್ತದೆ.
 
 <Recap>
 
-* If two state variables always update together, consider merging them into one. 
-* Choose your state variables carefully to avoid creating "impossible" states.
-* Structure your state in a way that reduces the chances that you'll make a mistake updating it.
-* Avoid redundant and duplicate state so that you don't need to keep it in sync.
-* Don't put props *into* state unless you specifically want to prevent updates.
-* For UI patterns like selection, keep ID or index in state instead of the object itself.
-* If updating deeply nested state is complicated, try flattening it.
+* ಎರಡು ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್‌ಗಳು ಯಾವಾಗಲೂ ಒಟ್ಟಿಗೆ ಅಪ್‌ಡೇಟ್ ಆಗಿದ್ದರೆ, ಅವುಗಳನ್ನು ಒಂದಾಗಿ ವಿಲೀನಗೊಳಿಸುವುದನ್ನು ಪರಿಗಣಿಸಿ. 
+* "ಅಸಾಧ್ಯ" ಸ್ಟೇಟ್ಗಳನ್ನು ರಚಿಸುವುದನ್ನು ತಪ್ಪಿಸಲು ನಿಮ್ಮ ಸ್ಟೇಟ್ ಅಸ್ಥಿರಗಳನ್ನು ಎಚ್ಚರಿಕೆಯಿಂದ ಆರಿಸಿ.
+* ನಿಮ್ಮ ಸ್ಟೇಟ್ ನವೀಕರಿಸುವಾಗ ನೀವು ತಪ್ಪು ಮಾಡುವ ಸಾಧ್ಯತೆಗಳನ್ನು ಕಡಿಮೆ ಮಾಡುವ ರೀತಿಯಲ್ಲಿ ರಚನೆ ಮಾಡಿ.
+* ಅನಗತ್ಯ ಮತ್ತು ನಕಲು ಸ್ಟೇಟ್ ತಪ್ಪಿಸಿ ಇದರಿಂದ ನೀವು ಅದನ್ನು ಸಿಂಕ್‌ನಲ್ಲಿ ಇರಿಸಿಕೊಳ್ಳುವ ಅಗತ್ಯವಿಲ್ಲ.
+* ನೀವು ನಿರ್ದಿಷ್ಟವಾಗಿ ಅಪ್‌ಡೇಟ್‌ಗಳನ್ನು ತಡೆಯಲು ಬಯಸದ ಹೊರತು ಪ್ರಾಪ್ಸ್ ಅನ್ನು ಸ್ಟೇಟಗೆ ಹಾಕಬೇಡಿ.
+* ಆಯ್ಕೆಯಂತಹ UI ಮಾದರಿಗಳಿಗಾಗಿ, ಆಬ್ಜೆಕ್ಟ್ ಬದಲಿಗೆ ID ಅಥವಾ ಸೂಚಿಯನ್ನು ಸ್ಥಿತಿಯಲ್ಲಿ ಇರಿಸಿ.
+* ಆಳವಾಗಿ ನೆಸ್ಟೆಡ್ ಸ್ಥಿತಿಯನ್ನು ನವೀಕರಿಸುವುದು ಸಂಕೀರ್ಣವಾಗಿದ್ದರೆ, ಅದನ್ನು ಚಪ್ಪಟೆಗೊಳಿಸಲು ಪ್ರಯತ್ನಿಸಿ.
 
 </Recap>
 
