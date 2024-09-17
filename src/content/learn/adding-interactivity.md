@@ -1,30 +1,29 @@
 ---
 title: Adding Interactivity
 ---
-
 <Intro>
 
-Some things on the screen update in response to user input. For example, clicking an image gallery switches the active image. In React, data that changes over time is called *state.* You can add state to any component, and update it as needed. In this chapter, you'll learn how to write components that handle interactions, update their state, and display different output over time.
+ಬಳಕೆದಾರರ ಇನ್‌ಪುಟ್‌ಗೆ ಪ್ರತಿಕ್ರಿಯೆಯಾಗಿ ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಕೆಲವು ವಿಷಯಗಳನ್ನು ನವೀಕರಿಸಲಾಗುತ್ತದೆ. ಉದಾಹರಣೆಗೆ, ಇಮೇಜ್ ಗ್ಯಾಲರಿಯನ್ನು ಕ್ಲಿಕ್ ಮಾಡುವುದರಿಂದ ಸಕ್ರಿಯ ಚಿತ್ರವನ್ನು ಬದಲಾಯಿಸುತ್ತದೆ. ರಿಯಾಕ್ಟ್‌ನಲ್ಲಿ, ಕಾಲಾನಂತರದಲ್ಲಿ ಬದಲಾಗುವ ಡೇಟಾವನ್ನು *ಸ್ಟೇಟ್* ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ. ನೀವು ಯಾವುದೇ ಕೊಂಪೊನೆಂಟಕ್ಕೆ ಸ್ಟೇಟನು ಸೇರಿಸಬಹುದು ಮತ್ತು ಅಗತ್ಯವಿರುವಂತೆ ಅದನ್ನು ನವೀಕರಿಸಬಹುದು.ಈ ಅಧ್ಯಾಯದಲ್ಲಿ, ಸಂವಹನಗಳನ್ನು ನಿರ್ವಹಿಸುವ, ಅವುಗಳ ಸ್ಟೇಟ್ ನವೀಕರಿಸುವ ಮತ್ತು ಕಾಲಾನಂತರದಲ್ಲಿ ವಿಭಿನ್ನ ಔಟ್‌ಪುಟ್ ಅನ್ನು ಪ್ರದರ್ಶಿಸುವ ಕೊಂಪೊನೆಂಟ್ಗಳನ್ನು ಹೇಗೆ ಬರೆಯುವುದು ಎಂಬುದನ್ನು ನೀವು ಕಲಿಯುವಿರಿ.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to handle user-initiated events](/learn/responding-to-events)
-* [How to make components "remember" information with state](/learn/state-a-components-memory)
-* [How React updates the UI in two phases](/learn/render-and-commit)
-* [Why state doesn't update right after you change it](/learn/state-as-a-snapshot)
-* [How to queue multiple state updates](/learn/queueing-a-series-of-state-updates)
-* [How to update an object in state](/learn/updating-objects-in-state)
-* [How to update an array in state](/learn/updating-arrays-in-state)
+* [ಬಳಕೆದಾರರು ಪ್ರಾರಂಭಿಸಿದ ಈವೆಂಟ್‌ಗಳನ್ನು ಹೇಗೆ ನಿರ್ವಹಿಸುವುದು](/learn/responding-to-events)
+* [ಕೊಂಪೊನೆಂಟ್ಗಳನ್ನು ಸ್ಟೇಟ್ದೊಂದಿಗೆ ಮಾಹಿತಿಯನ್ನು "ನೆನಪಿಡೋದೋ" ಹೇಗೆ](/learn/state-a-components-memory)
+* [ಹೇಗೆ ರಿಯಾಕ್ಟ್ ಎರಡು ಹಂತಗಳಲ್ಲಿ UI ಅನ್ನು ನವೀಕರಿಸುತ್ತದೆ](/learn/render-and-commit)
+* [ನೀವು ಅದನ್ನು ಬದಲಾಯಿಸಿದ ತಕ್ಷಣ ಸ್ಟೇಟ್ ಏಕೆ ನವೀಕರಿಸುವುದಿಲ್ಲ](/learn/state-as-a-snapshot)
+* [ಬಹು ಸ್ಟೇಟ್ ನವೀಕರಣಗಳನ್ನು ಸರತಿಯಲ್ಲಿ ಹೇಗೆ ಮಾಡುವುದು](/learn/queueing-a-series-of-state-updates)
+* [ಸ್ಥಿತಿಯಲ್ಲಿ ಓಬ್ಜೆಕ್ಟ್ವನ್ನು ಹೇಗೆ ನವೀಕರಿಸುವುದು](/learn/updating-objects-in-state)
+* [statealli ಒಂದು ಅರೆಯನ್ನು ನವೀಕರಿಸುವುದು ಹೇಗೆ](/learn/updating-arrays-in-state)
 
 </YouWillLearn>
 
-## Responding to events {/*responding-to-events*/}
+## ಈವೆಂಟ್ಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದು {/*responding-to-events*/}
 
-React lets you add *event handlers* to your JSX. Event handlers are your own functions that will be triggered in response to user interactions like clicking, hovering, focusing on form inputs, and so on.
+ನಿಮ್ಮ JSX ಗೆ *ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್‌ಗಳನ್ನು* ಸೇರಿಸಲು ರಿಯಾಕ್ಟ್ ಅನುಮತಿಸುತ್ತದೆ. ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್‌ಗಳು ನಿಮ್ಮ ಸ್ವಂತ ಕಾರ್ಯಗಳಾಗಿದ್ದು, ಕ್ಲಿಕ್ ಮಾಡುವುದು, ಸುಳಿದಾಡುವುದು, ಫಾರ್ಮ್ ಇನ್‌ಪುಟ್‌ಗಳ ಮೇಲೆ ಕೇಂದ್ರೀಕರಿಸುವುದು ಮತ್ತು ಮುಂತಾದ ಬಳಕೆದಾರರ ಸಂವಹನಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯೆಯಾಗಿ ಟ್ರಿಗರ್ ಮಾಡಲಾಗುತ್ತದೆ.
 
-Built-in components like `<button>` only support built-in browser events like `onClick`. However, you can also create your own components, and give their event handler props any application-specific names that you like.
+`<button>` ನಂತಹ ಅಂತರ್ನಿರ್ಮಿತ ಕೊಂಪೊನೆಂಟ್ಗಳು `onClick` ನಂತಹ ಅಂತರ್ನಿರ್ಮಿತ ಬ್ರೌಸರ್ ಈವೆಂಟ್‌ಗಳನ್ನು ಮಾತ್ರ ಬೆಂಬಲಿಸುತ್ತವೆ. ಆದಾಗ್ಯೂ, ನೀವು ನಿಮ್ಮ ಸ್ವಂತ ಕೊಂಪೊನೆಂಟ್ಗಳನ್ನು ಸಹ ರಚಿಸಬಹುದು ಮತ್ತು ಅವರ ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್ ಪ್ರಾಪ್‌ಗಳಿಗೆ ನೀವು ಇಷ್ಟಪಡುವ ಯಾವುದೇ ಅಪ್ಲಿಕೇಶನ್-ನಿರ್ದಿಷ್ಟ ಹೆಸರುಗಳನ್ನು ನೀಡಬಹುದು.
 
 <Sandpack>
 
@@ -68,22 +67,21 @@ button { margin-right: 10px; }
 
 <LearnMore path="/learn/responding-to-events">
 
-Read **[Responding to Events](/learn/responding-to-events)** to learn how to add event handlers.
-
+ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್‌ಗಳನ್ನು ಹೇಗೆ ಸೇರಿಸುವುದು ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಈವೆಂಟ್‌ಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದನ್ನು](/learn/responding-to-events)** ಓದಿ.
 </LearnMore>
 
-## State: a component's memory {/*state-a-components-memory*/}
+## ಸ್ಟೇಟ್: ಒಂದು ಕೊಂಪೊನೆಂಟೀನ ಸ್ಮರಣೆ {/*state-a-components-memory*/}
 
-Components often need to change what's on the screen as a result of an interaction. Typing into the form should update the input field, clicking "next" on an image carousel should change which image is displayed, clicking "buy" puts a product in the shopping cart. Components need to "remember" things: the current input value, the current image, the shopping cart. In React, this kind of component-specific memory is called *state.*
+ಪರಸ್ಪರ ಕ್ರಿಯೆಯ ಪರಿಣಾಮವಾಗಿ ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಏನಿದೆ ಎಂಬುದನ್ನು ಕೊಂಪೊನೆಂಟ್ಗಳು ಆಗಾಗ್ಗೆ ಬದಲಾಯಿಸಬೇಕಾಗುತ್ತದೆ. ಫಾರ್ಮ್‌ನಲ್ಲಿ ಟೈಪ್ ಮಾಡುವುದರಿಂದ ಇನ್‌ಪುಟ್ ಕ್ಷೇತ್ರವನ್ನು ನವೀಕರಿಸಬೇಕು, ಚಿತ್ರದ ಏರಿಳಿಕೆಯಲ್ಲಿ "next" ಕ್ಲಿಕ್ ಮಾಡುವುದರಿಂದ ಯಾವ ಚಿತ್ರವನ್ನು ಪ್ರದರ್ಶಿಸಲಾಗುತ್ತದೆ ಎಂಬುದನ್ನು ಬದಲಾಯಿಸಬೇಕು, "buy" ಕ್ಲಿಕ್ ಮಾಡುವುದರಿಂದ ಶಾಪಿಂಗ್ ಕಾರ್ಟ್‌ನಲ್ಲಿ ಉತ್ಪನ್ನವನ್ನು ಇರಿಸಲಾಗುತ್ತದೆ. ಕೊಂಪೊನೆಂಟ್ಗಳು ವಿಷಯಗಳನ್ನು "ನೆನಪಿಟ್ಟುಕೊಳ್ಳಬೇಕು": ಪ್ರಸ್ತುತ ಇನ್‌ಪುಟ್ ಮೌಲ್ಯ, ಪ್ರಸ್ತುತ ಚಿತ್ರ, ಶಾಪಿಂಗ್ ಕಾರ್ಟ್. ರಿಯಾಕ್ಟ್‌ನಲ್ಲಿ, ಈ ರೀತಿಯ ಘಟಕ-ನಿರ್ದಿಷ್ಟ ಸ್ಮರಣೆಯನ್ನು *ಸ್ಟೇಟ್* ಎಂದು ಕರೆಯಲಾಗುತ್ತದೆ.
 
-You can add state to a component with a [`useState`](/reference/react/useState) Hook. *Hooks* are special functions that let your components use React features (state is one of those features). The `useState` Hook lets you declare a state variable. It takes the initial state and returns a pair of values: the current state, and a state setter function that lets you update it.
+ನೀವು [`useState`](/reference/react/useState) ಹುಕ್‌ನೊಂದಿಗೆ ಕೊಂಪೊನೆಂಟಕ್ಕೆ ಸ್ಟೇಟ್ ಸೇರಿಸಬಹುದು. *ಹುಕ್ಸ್* ವಿಶೇಷ ಫಂಕ್ಷನ್ಗಳಾಗಿವೆ ಅದು ನಿಮ್ಮ ಕೊಂಪೊನೆಂಟ್ಗಳನ್ನು ರಿಯಾಕ್ಟ್ ವೈಶಿಷ್ಟ್ಯಗಳನ್ನು ಬಳಸಲು ಅನುಮತಿಸುತ್ತದೆ (ಸ್ಟೇಟ್ ಆ ವೈಶಿಷ್ಟ್ಯಗಳಲ್ಲಿ ಒಂದಾಗಿದೆ). ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್ ಅನ್ನು ಘೋಷಿಸಲು `useState` ಹುಕ್ ನಿಮಗೆ ಅನುಮತಿಸುತ್ತದೆ. ಇದು ಆರಂಭಿಕ ಸ್ಟೇಟನ್ನು ತೆಗೆದುಕೊಳ್ಳುತ್ತದೆ ಮತ್ತು ಒಂದು ಜೋಡಿ ಮೌಲ್ಯಗಳನ್ನು ಹಿಂತಿರುಗಿಸುತ್ತದೆ: ಪ್ರಸ್ತುತ ಸ್ಟೇಟ್, ಮತ್ತು ಅದನ್ನು ನವೀಕರಿಸಲು ನಿಮಗೆ ಅನುಮತಿಸುವ ಸ್ಟೇಟ್ ಸೆಟ್ಟರ್ ಫಂಕ್ಷನ್.
 
 ```js
 const [index, setIndex] = useState(0);
 const [showMore, setShowMore] = useState(false);
 ```
 
-Here is how an image gallery uses and updates state on click:
+ಇಮೇಜ್ ಗ್ಯಾಲರಿಯು ಕ್ಲಿಕ್‌ನಲ್ಲಿ ಸ್ಟೇಟ್ ಹೇಗೆ ಬಳಸುತ್ತದೆ ಮತ್ತು ನವೀಕರಿಸುತ್ತದೆ ಎಂಬುದು ಇಲ್ಲಿದೆ:
 
 <Sandpack>
 
@@ -229,19 +227,19 @@ button {
 
 <LearnMore path="/learn/state-a-components-memory">
 
-Read **[State: A Component's Memory](/learn/state-a-components-memory)** to learn how to remember a value and update it on interaction.
+ಮೌಲ್ಯವನ್ನು ಹೇಗೆ ನೆನಪಿಟ್ಟುಕೊಳ್ಳುವುದು ಮತ್ತು ಪರಸ್ಪರ ಕ್ರಿಯೆಯಲ್ಲಿ ಅದನ್ನು ನವೀಕರಿಸುವುದು ಹೇಗೆ ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್: ಎ ಕಾಂಪೊನೆಂಟ್ಸ್ ಮೆಮೊರಿ](/learn/state-a-components-memory)** ಓದಿ.
 
 </LearnMore>
 
-## Render and commit {/*render-and-commit*/}
+## ನಿರೂಪಿಸಿ(ರೆಂಡರ್) ಮತ್ತು ಒಪ್ಪಿಸಿ(ಕಮ್ಮಿಟ್) {/*render-and-commit*/}
 
-Before your components are displayed on the screen, they must be rendered by React. Understanding the steps in this process will help you think about how your code executes and explain its behavior.
+ನಿಮ್ಮ ಕೊಂಪೊನೆಂಟ್ಗಳನ್ನು ಸ್ಕ್ರೀನ್ ಮೇಲೆ ಪ್ರದರ್ಶಿಸುವ ಮೊದಲು, ಅವುಗಳನ್ನು ರಿಯಾಕ್ಟ್ ಮೂಲಕ ಸಲ್ಲಿಸಬೇಕು. ಈ ಪ್ರಕ್ರಿಯೆಯಲ್ಲಿನ ಹಂತಗಳನ್ನು ಅರ್ಥಮಾಡಿಕೊಳ್ಳುವುದು ನಿಮ್ಮ ಕೋಡ್ ಅನ್ನು ಹೇಗೆ ಕಾರ್ಯಗತಗೊಳಿಸುತ್ತದೆ ಮತ್ತು ಅದರ ನಡವಳಿಕೆಯನ್ನು ವಿವರಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ.
 
-Imagine that your components are cooks in the kitchen, assembling tasty dishes from ingredients. In this scenario, React is the waiter who puts in requests from customers and brings them their orders. This process of requesting and serving UI has three steps:
+ನಿಮ್ಮ ಕೊಂಪೊನೆಂಟ್ಗಳು ಅಡುಗೆಮನೆಯಲ್ಲಿ ಅಡುಗೆಯವರು ಎಂದು ಊಹಿಸಿ, ಪದಾರ್ಥಗಳಿಂದ ಟೇಸ್ಟಿ ಭಕ್ಷ್ಯಗಳನ್ನು ಜೋಡಿಸಿ. ಈ ಸನ್ನಿವೇಶದಲ್ಲಿ, ಗ್ರಾಹಕರಿಂದ ವಿನಂತಿಗಳನ್ನು ಸಲ್ಲಿಸುವ ಮತ್ತು ಅವರ ಆದೇಶಗಳನ್ನು ತರುವ ಮಾಣಿಯೇ ರಿಯಾಕ್ಟ್. UI ಅನ್ನು ವಿನಂತಿಸುವ ಮತ್ತು ಸೇವೆ ಮಾಡುವ ಈ ಪ್ರಕ್ರಿಯೆಯು ಮೂರು ಹಂತಗಳನ್ನು ಹೊಂದಿದೆ
 
-1. **Triggering** a render (delivering the diner's order to the kitchen)
-2. **Rendering** the component (preparing the order in the kitchen)
-3. **Committing** to the DOM (placing the order on the table)
+1. **ಟ್ರಿಗ್ಗರಿಂಗ್** ರೆಂಡರ್ (ಗ್ರಾಹಕರ ಆರ್ಡರ್ ಅನ್ನು ಅಡುಗೆ ಮನೆಗೆ ತಲುಪಿಸುವುದು)
+2. **ರೆಂಡರಿಂಗ್** ಕೊಂಪೊನೆಂಟ್ (ಅಡುಗೆಮನೆಯಲ್ಲಿ ಆದೇಶವನ್ನು ಸಿದ್ಧಪಡಿಸುವುದು)
+3. DOM ಗೆ **ಕಮ್ಮಿಟ್ ಮಾಡುವದು** (ಮೇಜಿನ ಮೇಲೆ ಆದೇಶವನ್ನು ಇರಿಸುವುದು)
 
 <IllustrationBlock sequential>
   <Illustration caption="Trigger" alt="React as a server in a restaurant, fetching orders from the users and delivering them to the Component Kitchen." src="/images/docs/illustrations/i_render-and-commit1.png" />
@@ -257,7 +255,7 @@ Read **[Render and Commit](/learn/render-and-commit)** to learn the lifecycle of
 
 ## State as a snapshot {/*state-as-a-snapshot*/}
 
-Unlike regular JavaScript variables, React state behaves more like a snapshot. Setting it does not change the state variable you already have, but instead triggers a re-render. This can be surprising at first!
+ಸಾಮಾನ್ಯ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ವೇರಿಯೇಬಲ್‌ಗಳಿಗಿಂತ ಭಿನ್ನವಾಗಿ, ರಿಯಾಕ್ಟ್ ಸ್ಟೇಟ್ ಸ್ನ್ಯಾಪ್‌ಶಾಟ್‌ನಂತೆ ವರ್ತಿಸುತ್ತದೆ. ಇದನ್ನು ಹೊಂದಿಸುವುದರಿಂದ ನೀವು ಈಗಾಗಲೇ ಹೊಂದಿರುವ ಸ್ಟೇಟ್ ವೇರಿಯಬಲ್ ಅನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ, ಬದಲಿಗೆ ಮರು-ರೆಂಡರ್ ಅನ್ನು ಪ್ರಚೋದಿಸುತ್ತದೆ. ಇದು ಮೊದಲಿಗೆ ಆಶ್ಚರ್ಯವಾಗಬಹುದು!
 
 ```js
 console.log(count);  // 0
@@ -265,7 +263,7 @@ setCount(count + 1); // Request a re-render with 1
 console.log(count);  // Still 0!
 ```
 
-This behavior help you avoid subtle bugs. Here is a little chat app. Try to guess what happens if you press "Send" first and *then* change the recipient to Bob. Whose name will appear in the `alert` five seconds later?
+ಈ ನಡವಳಿಕೆಯು ಸೂಕ್ಷ್ಮ ಬಗ್ಗಳನ್ನು ತಪ್ಪಿಸಲು ನಿಮಗೆ ಸಹಾಯ ಮಾಡುತ್ತದೆ. ಇಲ್ಲಿ ಸ್ವಲ್ಪ ಚಾಟ್ ಅಪ್ಲಿಕೇಶನ್ ಇದೆ. ನೀವು ಮೊದಲು "Send" ಒತ್ತಿ ಮತ್ತು *ನಂತರ* ಸ್ವೀಕರಿಸುವವರನ್ನು ಬಾಬ್‌ಗೆ ಬದಲಾಯಿಸಿದರೆ ಏನಾಗುತ್ತದೆ ಎಂದು ಊಹಿಸಲು ಪ್ರಯತ್ನಿಸಿ. ಐದು ಸೆಕೆಂಡುಗಳ ನಂತರ `ಎಚ್ಚರಿಕೆ~ಯಲ್ಲಿ ಯಾರ ಹೆಸರು ಕಾಣಿಸಿಕೊಳ್ಳುತ್ತದೆ?
 
 <Sandpack>
 
@@ -314,13 +312,13 @@ label, textarea { margin-bottom: 10px; display: block; }
 
 <LearnMore path="/learn/state-as-a-snapshot">
 
-Read **[State as a Snapshot](/learn/state-as-a-snapshot)** to learn why state appears "fixed" and unchanging inside the event handlers.
+ಈವೆಂಟ್ ಹ್ಯಾಂಡ್ಲರ್‌ಗಳಲ್ಲಿ ಸ್ಥಿತಿಯು "ಸ್ಥಿರ" ಮತ್ತು ಬದಲಾಗದೆ ಏಕೆ ಗೋಚರಿಸುತ್ತದೆ ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಸ್ನ್ಯಾಪ್‌ಶಾಟ್‌ನಂತೆ ಸ್ಟೇಟ್](/learn/state-as-a-snapshot)** ಓದಿ.
 
 </LearnMore>
 
 ## Queueing a series of state updates {/*queueing-a-series-of-state-updates*/}
 
-This component is buggy: clicking "+3" increments the score only once.
+ಈ ಕೊಂಪೊನೆಂಟ್ ದೋಷಯುಕ್ತವಾಗಿದೆ: "+3" ಅನ್ನು ಕ್ಲಿಕ್ ಮಾಡುವುದರಿಂದ ಸ್ಕೋರ್ ಅನ್ನು ಒಮ್ಮೆ ಮಾತ್ರ ಹೆಚ್ಚಿಸುತ್ತದೆ.
 
 <Sandpack>
 
@@ -355,6 +353,7 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 </Sandpack>
 
 [State as a Snapshot](/learn/state-as-a-snapshot) explains why this is happening. Setting state requests a new re-render, but does not change it in the already running code. So `score` continues to be `0` right after you call `setScore(score + 1)`.
+[ಸ್ಟೇಟ್-ಆಸ್-ಸ್ನ್ಯಾಪ್‌ಶಾಟ್](/learn/state-as-a-snapshot) ಇದು ಏಕೆ ನಡೆಯುತ್ತಿದೆ ಎಂಬುದನ್ನು ವಿವರಿಸುತ್ತದೆ. ಸ್ಟೇಟ್ ಹೊಂದಿಸುವುದರಿಂದ ಹೊಸ ಮರು-ನಿರೂಪಣೆಗೆ ವಿನಂತಿಸುತ್ತದೆ, ಆದರೆ ಈಗಾಗಲೇ ಚಾಲನೆಯಲ್ಲಿರುವ ಕೋಡ್‌ನಲ್ಲಿ ಅದನ್ನು ಬದಲಾಯಿಸುವುದಿಲ್ಲ. ಆದ್ದರಿಂದ ನೀವು `setScore(score + 1)` ಎಂದು ಕರೆದ ನಂತರ `score` `0` ಆಗಿ ಮುಂದುವರಿಯುತ್ತದೆ.
 
 ```js
 console.log(score);  // 0
@@ -367,6 +366,7 @@ console.log(score);  // 0
 ```
 
 You can fix this by passing an *updater function* when setting state. Notice how replacing `setScore(score + 1)` with `setScore(s => s + 1)` fixes the "+3" button. This lets you queue multiple state updates.
+ಸ್ಟೇಟ್ ಹೊಂದಿಸುವಾಗ *ಅಪ್‌ಡೇಟರ್ ಫಂಕ್ಷನ್* ಅನ್ನು ಹಾದುಹೋಗುವ ಮೂಲಕ ನೀವು ಇದನ್ನು ಸರಿಪಡಿಸಬಹುದು. `setScore(score + 1)` ಅನ್ನು `setScore(s => s + 1)` ನೊಂದಿಗೆ ಬದಲಾಯಿಸುವುದು "+3" ಬಟನ್ ಅನ್ನು ಹೇಗೆ ಸರಿಪಡಿಸುತ್ತದೆ ಎಂಬುದನ್ನು ಗಮನಿಸಿ. ಬಹು ಸ್ಟೇಟ್ ನವೀಕರಣಗಳನ್ನು ಸರದಿಯಲ್ಲಿ ಇರಿಸಲು ಇದು ನಿಮ್ಮನ್ನು ಅನುಮತಿಸುತ್ತದೆ.
 
 <Sandpack>
 
@@ -402,15 +402,15 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 
 <LearnMore path="/learn/queueing-a-series-of-state-updates">
 
-Read **[Queueing a Series of State Updates](/learn/queueing-a-series-of-state-updates)** to learn how to queue a sequence of state updates.
+ಸ್ಟೇಟ್ ನವೀಕರಣಗಳ ಅನುಕ್ರಮವನ್ನು ಹೇಗೆ ಸರತಿಯಲ್ಲಿ ಇಡಬೇಕು ಎಂಬುದನ್ನು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್ ನವೀಕರಣಗಳ ಸರಣಿಯನ್ನು ಸರದಿಯಲ್ಲಿ ಇಡುವುದು](/learn/queueing-a-series-of-state-updates)** ಓದಿ.
 
 </LearnMore>
 
-## Updating objects in state {/*updating-objects-in-state*/}
+## ಸ್ಟೇಟ್ದಲ್ಲಿನ ಆಬ್ಜೆಕ್ಟ್‌ಗಳನ್ನು ನವೀಕರಿಸಿ {/*updating-objects-in-state*/}
 
-State can hold any kind of JavaScript value, including objects. But you shouldn't change objects and arrays that you hold in the React state directly. Instead, when you want to update an object and array, you need to create a new one (or make a copy of an existing one), and then update the state to use that copy.
+ಆಬ್ಜೆಕ್ಟ್‌ಗಳು ಸೇರಿದಂತೆ ಯಾವುದೇ ರೀತಿಯ ಜಾವಾಸ್ಕ್ರಿಪ್ಟ್ ವೇರಿಯೇಬಲ್‌ವನ್ನು ಸ್ಟೇಟ್ ಹಿಡಿದಿಟ್ಟುಕೊಳ್ಳಬಹುದು. ಆದರೆ ನೀವು ನೇರವಾಗಿ ರಿಯಾಕ್ಟ್ ಸ್ಟೇಟ್‌ನಲ್ಲಿ ಹಿಡಿದಿರುವ ವಸ್ತುಗಳು ಮತ್ತು ಅರೇಗಳನ್ನು ಬದಲಾಯಿಸಬಾರದು. ಬದಲಾಗಿ, ನೀವು ಆಬ್ಜೆಕ್ಟ್ ಮತ್ತು ಅರೇಯನ್ನು ನವೀಕರಿಸಲು ಬಯಸಿದಾಗ, ನೀವು ಹೊಸದನ್ನು ರಚಿಸಬೇಕು (ಅಥವಾ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಒಂದರ ನಕಲನ್ನು ಮಾಡಿ), ತದನಂತರ ಆ ನಕಲನ್ನು ಬಳಸಲು ಸ್ಟೇಟ್ ನವೀಕರಿಸಿ.
 
-Usually, you will use the `...` spread syntax to copy objects and arrays that you want to change. For example, updating a nested object could look like this:
+ಸಾಮಾನ್ಯವಾಗಿ, ನೀವು ಬದಲಾಯಿಸಲು ಬಯಸುವ ಆಬ್ಜೆಕ್ಟ್‌ಗಳು ಮತ್ತು ಅರೇಗಳನ್ನು ನಕಲಿಸಲು ನೀವು `...` ಸ್ಪ್ರೆಡ್ ಸಿಂಟ್ಯಾಕ್ಸ್ ಅನ್ನು ಬಳಸುತ್ತೀರಿ. ಉದಾಹರಣೆಗೆ, ನೆಸ್ಟೆಡ್ ಆಬ್ಜೆಕ್ಟ್‌ವನ್ನು ನವೀಕರಿಸುವುದು ಈ ರೀತಿ ಕಾಣಿಸಬಹುದು:
 
 <Sandpack>
 
@@ -518,7 +518,7 @@ img { width: 200px; height: 200px; }
 
 </Sandpack>
 
-If copying objects in code gets tedious, you can use a library like [Immer](https://github.com/immerjs/use-immer) to reduce repetitive code:
+ಕೋಡ್‌ನಲ್ಲಿ ಆಬ್ಜೆಕ್ಟ್ಗಳನ್ನು ನಕಲಿಸುವುದು ಬೇಸರದ ಸಂಗತಿಯಾದರೆ, ಪುನರಾವರ್ತಿತ ಕೋಡ್ ಅನ್ನು ಕಡಿಮೆ ಮಾಡಲು ನೀವು [Immer](https://github.com/immerjs/use-immer) ನಂತಹ ಲೈಬ್ರರಿಯನ್ನು ಬಳಸಬಹುದು:
 
 <Sandpack>
 
@@ -633,13 +633,13 @@ img { width: 200px; height: 200px; }
 
 <LearnMore path="/learn/updating-objects-in-state">
 
-Read **[Updating Objects in State](/learn/updating-objects-in-state)** to learn how to update objects correctly.
+ಆಬ್ಜೆಕ್ಟಗಳನ್ನು ಸರಿಯಾಗಿ ನವೀಕರಿಸುವುದು ಹೇಗೆ ಎಂದು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್ ಆಬ್ಜೆಕ್ಟ್‌ಗಳನ್ನು ನವೀಕರಿಸಿ](/learn/updating-objects-in-state)** ಓದಿ.
 
 </LearnMore>
 
-## Updating arrays in state {/*updating-arrays-in-state*/}
+## ಸ್ಟೇಟ್ ಅರೇಗಳನ್ನು ನವೀಕರಿಸಿ {/*updating-arrays-in-state*/}
 
-Arrays are another type of mutable JavaScript objects you can store in state and should treat as read-only. Just like with objects, when you want to update an array stored in state, you need to create a new one (or make a copy of an existing one), and then set state to use the new array:
+ಅರೇಗಳು ನೀವು ಸ್ಟೇಟ್ ಸಂಗ್ರಹಿಸಬಹುದಾದ ಮತ್ತು ಓದಲು-ಮಾತ್ರ ಎಂದು ಪರಿಗಣಿಸಬೇಕಾದ ಮತ್ತೊಂದು ರೀತಿಯ ರೂಪಾಂತರಿತ JavaScript ಆಬ್ಜೆಕ್ಟ್‌ಗಳು. ಆಬ್ಜೆಕ್ಟ್‌ಗಳಂತೆಯೇ, ನೀವು ಸ್ಟೇಟ್ಲಲಿ ಸಂಗ್ರಹವಾಗಿರುವ ರಚನೆಯನ್ನು ನವೀಕರಿಸಲು ಬಯಸಿದಾಗ, ನೀವು ಹೊಸದನ್ನು ರಚಿಸುವ ಅಗತ್ಯವಿದೆ (ಅಥವಾ ಅಸ್ತಿತ್ವದಲ್ಲಿರುವ ಒಂದರ ನಕಲನ್ನು ಮಾಡಿ), ತದನಂತರ ಹೊಸ ರಚನೆಯನ್ನು ಬಳಸಲು ಸ್ಟೇಟ್ ಹೊಂದಿಸಿ:
 
 <Sandpack>
 
@@ -706,7 +706,7 @@ function ItemList({ artworks, onToggle }) {
 
 </Sandpack>
 
-If copying arrays in code gets tedious, you can use a library like [Immer](https://github.com/immerjs/use-immer) to reduce repetitive code:
+ಕೋಡ್‌ನಲ್ಲಿ ಆಬ್ಜೆಕ್ಟ್ಗಳನ್ನು ನಕಲಿಸುವುದು ಬೇಸರದ ಸಂಗತಿಯಾದರೆ, ಪುನರಾವರ್ತಿತ ಕೋಡ್ ಅನ್ನು ಕಡಿಮೆ ಮಾಡಲು ನೀವು [Immer](https://github.com/immerjs/use-immer) ನಂತಹ ಲೈಬ್ರರಿಯನ್ನು ಬಳಸಬಹುದು:
 
 <Sandpack>
 
@@ -791,12 +791,12 @@ function ItemList({ artworks, onToggle }) {
 
 <LearnMore path="/learn/updating-arrays-in-state">
 
-Read **[Updating Arrays in State](/learn/updating-arrays-in-state)** to learn how to update arrays correctly.
+ಅರೇಗಳನ್ನು ಸರಿಯಾಗಿ ಅಪ್‌ಡೇಟ್ ಮಾಡುವುದು ಹೇಗೆ ಎಂದು ತಿಳಿಯಲು **[ಸ್ಟೇಟ್ ಅರೇಗಳನ್ನು ನವೀಕರಿಸಿ](/learn/updating-arrays-in-state)** ಓದಿ.
 
 </LearnMore>
 
-## What's next? {/*whats-next*/}
+## ಮುಂದೇನು? {/*whats-next*/}
 
-Head over to [Responding to Events](/learn/responding-to-events) to start reading this chapter page by page!
+ಪುಟದಿಂದ ಈ ಅಧ್ಯಾಯವನ್ನು ಓದುವುದನ್ನು ಪ್ರಾರಂಭಿಸಲು [ಈವೆಂಟ್‌ಗಳಿಗೆ ಪ್ರತಿಕ್ರಿಯಿಸುವುದು](/learn/responding-to-events) ಗೆ ಹೋಗಿ!
 
-Or, if you're already familiar with these topics, why not read about [Managing State](/learn/managing-state)?
+ಅಥವಾ, ನೀವು ಈಗಾಗಲೇ ಈ ವಿಷಯಗಳೊಂದಿಗೆ ಪರಿಚಿತರಾಗಿದ್ದರೆ, [ಮ್ಯಾನೇಜಿಂಗ್ ಸ್ಟೇಟ್](/learn/managing-state) ಕುರಿತು ಏಕೆ ಓದಬಾರದು?
